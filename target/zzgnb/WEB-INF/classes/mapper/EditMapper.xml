@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.DAO">
+    <resultMap id="userResultMap" type="User">
+        <id property="userId" column="user_id"/>
+        <result property="password" column="password"/>
+        <result property="username" column="name"/>
+        <result property="telnumber" column="number"/>
+        <result property="money" column="money"/>
+    </resultMap>
+    <resultMap id="flightResultMap" type="Flight">
+        <id property="flightId" column="flight_id"/>
+        <result property="start" column="start"/>
+        <result property="end" column="end"/>
+        <result property="date" column="time"/>
+        <result property="starttime" column="st_time"/>
+        <result property="endtime" column="en_time"/>
+        <result property="waitsite" column="wait_site"/>
+        <result property="fltype" column="fl_type"/>
+        <result property="lowprice" column="low_price"/>
+        <result property="topprice" column="top_price"/>
+    </resultMap>
+    <resultMap id="purchaseResultMap" type="Purchase">
+        <id property="puruserId" column="user_id"/>
+        <id property="purflightId" column="flight_id"/>
+        <result property="seattype" column="seat_type"/>
+        <result property="seat" column="seat"/>
+    </resultMap>
+    <resultMap id="recordResultMap" type="Record">
+        <id property="recordId" column="record_id"/>
+        <result property="retype" column="re_type"/>
+        <result property="reuserId" column="user_id"/>
+        <result property="reflightId" column="flight_id"/>
+    </resultMap>
+    <resultMap id="logResultMap" type="Log">
+        <id property="logid" column="log_id"/>
+        <result property="logtype" column="log_type"/>
+        <result property="logflightid" column="flight_id"/>
+        <result property="logstart" column="start"/>
+        <result property="logend" column="end"/>
+        <result property="logdate" column="date"/>
+        <result property="logstarttime" column="st_time"/>
+        <result property="logendtime" column="en_time"/>
+        <result property="logwaitsite" column="wait_site"/>
+        <result property="logfltype" column="fl_type"/>
+        <result property="loglowprice" column="low_price"/>
+        <result property="logtopprice" column="top_price"/>
+    </resultMap>
+
+    <!-- 武至境开始-->
+    <insert id="addClient" parameterType="User">
+        INSERT  INTO  user(user_id,password,name,number,money) VALUES (#{userId},#{password},#{username},#{telnumber},#{money})
+    </insert>
+    <insert id="addFlight" parameterType="Flight">
+        INSERT  INTO  flight(flight_id,start,end,time,st_time,en_time,wait_site,fl_type,low_price,top_price) VALUES (#{flightId},#{start},#{end},#{date},#{starttime},#{endtime},#{waitsite},#{fltype},#{lowprice},#{topprice})
+    </insert>
+    <insert id="addTicket" parameterType="Purchase">
+        INSERT  INTO  purchase(user_id,flight_id,seat_type,seat) VALUES (#{puruserId},#{purflightId},#{seattype},#{seat})
+    </insert>
+    <insert id="addRecord" parameterType="Record">
+        INSERT  INTO  record(record_id,re_type,user_id,flight_id) VALUES (#{recordId},#{retype},#{reuserId},#{reflightId})
+    </insert>
+    <insert id="addLog" parameterType="Log">
+        INSERT  INTO  log(log_id,log_type,flight_id,start,end,time,st_time,en_time,wait_site,fl_type,low_price,top_price) VALUES (#{logId},#{logtype},#{logflightId},#{logstart},#{logend},#{logdate},#{logstarttime},#{logendtime},#{logwaitsite},#{logfltype},#{loglowprice},#{logtopprice})
+    </insert>
+
+    <delete id="delFlight" parameterType="String">
+        DELETE FROM flight WHERE flight.flight_id=#{flightID}
+    </delete>
+    <delete id="delTicketManage" parameterType="String">
+        DELETE FROM purchase WHERE purchase.flight_id=#{purflightId}
+    </delete>
+    <delete id="delTicket" parameterType="Purchase">
+        DELETE FROM purchase WHERE purchase.user_id=#{puruserID} AND purchase.flight_id=#{purflightId}
+    </delete>
+    <delete id="delRecord" parameterType="Record">
+        DELETE FROM record WHERE record_id=#{recordID}
+    </delete>
+    <delete id="delLog" parameterType="Log">
+        DELETE FROM log WHERE log_id=#{logID}
+    </delete>
+
+
+    <update id="editClient" parameterType="User">
+        UPDATE user
+        <set>
+            <if test = "username != null">name = #{username},</if>
+            <if test = "password != null">password = #{password},</if>
+            <if test = "telnumber != null">number = #{telnumber},</if>
+            <if test = "money != 0">money = #{money}</if>
+        </set>
+        WHERE user.user_id = #{userId}
+    </update>
+
+    <update id="editFlight" parameterType="Flight">
+        UPDATE flight
+        <set>
+            <if test = "start != null">flight.start=#{start},</if>
+            <if test = "end != null">flight.end=#{end},</if>
+            <if test = "date != null">flight.time=#{date},</if>
+            <if test = "starttime != 0">flight.st_time=#{starttime},</if>
+            <if test = "endtime != 0">flight.en_time=#{endtime},</if>
+            <if test = "waitsite != null">flight.wait_site=#{waitsite},</if>
+            <if test = "fltype != null">flight.fl_type=#{fltype},</if>
+            <if test = "lowprice != 0">flight.low_price=#{lowprice},</if>
+            <if test = "topprice != 0">flight.top_price=#{topprice}</if>
+        </set>
+        WHERE flight.flight_id = #{flightId}
+    </update>
+    <update id="editTicket" parameterType="Purchase">
+        UPDATE purchase
+        <set>
+            <if test = "seattype != null">seat_type=#{seattype},</if>
+            <if test = "seat != null">seat=#{seat}</if>
+        </set>
+        WHERE purchase.user_id = #{puruserId} AND purchase.flight_id=#{purflightId}
+    </update>
+    <!-- 武至境结束-->
+
+    <!-- 文浩然开始-->
+    <select id="getClient" resultMap="userResultMap" parameterType="long">
+        SELECT *
+        FROM user
+        WHERE user.user_id=#{userId}
+    </select>
+
+    <select id="getFlight" resultMap="flightResultMap" parameterType="Flight">
+        SELECT *
+        FROM flight
+        WHERE flight.start=#{start} and flight.end=#{end} and flight.time=#{date}
+    </select>
+
+    <select id="getTicketByID" resultMap="purchaseResultMap">
+        SELECT *
+        FROM purchase
+        WHERE purchase.user_id=#{puruserId} and purchase.flight_id=#{purflightId}
+    </select>
+
+    <select id="getTicketByCID" resultMap="purchaseResultMap" parameterType="long">
+        SELECT *
+        FROM purchase
+        WHERE purchase.user_id=#{puruserId}
+    </select>
+
+    <select id="getRecord" resultMap="recordResultMap">
+        SELECT *
+        FROM record
+    </select>
+
+    <select id="getLog" resultMap="logResultMap">
+        SELECT *
+        FROM log
+    </select>
+
+    <!-- 文浩然结束-->
+    <select id="getRecover" resultType="Log">
+        SELECT *
+        FROM log
+        where log_id = (SELECT max(log_id) FROM log);
+    </select>
+
+    <select id="getUserinfom" resultMap="userResultMap" parameterType="com.pojo.User">
+        SELECT *
+        FROM user
+    </select>
+
+    <select id="getFlightByFId" resultMap="flightResultMap" parameterType="String">
+        SELECT *
+        FROM flight
+        WHERE flight.flight_id = #{flightId}
+    </select>
+
+    <select id="countTickets" resultType="int">
+        SELECT COUNT(flight_id)
+        FROM purchase
+        WHERE purchase.flight_id = #{fid} AND seat_type=#{c}
+    </select>
+
+    <select id="findid" resultType="long">
+        SELECT user.user_id
+        FROM user
+        WHERE name=#{username} AND user.password=#{password}
+    </select>
+
+    <select id="findallflight" resultMap="flightResultMap">
+        SELECT *
+        FROM flight
+    </select>
+
+    <select id="findFlight" resultMap="flightResultMap">
+        SELECT *
+        FROM flight
+        WHERE flight_id=#{flightId}
+    </select>
+
+    <select id="selectFlightByPage" resultMap="flightResultMap">
+        select * from flight limit #{start},#{size}
+    </select>
+
+    <select id="selectCount" resultType="int">
+        SELECT COUNT(flight_id) FROM flight
+    </select>
+
+    <select id="selectReturn" resultType="int" parameterType="String">
+        SELECT COUNT(purchase.seat_type) FROM flight,purchase
+        WHERE flight.end=#{end} AND purchase.flight_id=flight.flight_id
+    </select>
+
+    <select id="selectGo" resultType="int" parameterType="String">
+        SELECT COUNT(purchase.seat_type) FROM flight,purchase
+        WHERE flight.start=#{start} AND purchase.flight_id=flight.flight_id
+    </select>
+</mapper>

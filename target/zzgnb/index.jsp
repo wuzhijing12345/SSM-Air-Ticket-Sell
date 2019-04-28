@@ -1,0 +1,1 @@
+<jsp:forward page="/zzgnb/toMain"></jsp:forward>

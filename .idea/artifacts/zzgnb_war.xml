@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="zzgnb:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>zzgnb</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="zzgnb.war">
+      <element id="artifact" artifact-name="zzgnb:war exploded" />
+    </root>
+  </artifact>
+</component>

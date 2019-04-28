@@ -1,0 +1,110 @@
+#aside {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    width: 20%;
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    z-index: 1001;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+#aside #logo {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 2em;
+    text-transform: uppercase;
+    font-size: 38px;
+}
+#aside #logo a {
+    color: #000;
+}
+#aside #logo a span {
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.5);
+}
+#aside #menu ul {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+#aside #menu ul li {
+    margin: 0 0 20px 0;
+    padding: 0;
+    list-style: none;
+}
+#aside #menu ul li a {
+    color: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+    padding: 10px 10px;
+    letter-spacing: .2em;
+}
+#aside #menu ul li a:after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    bottom: 7px;
+    left: 10px;
+    right: 10px;
+    background-color: #228896;
+    visibility: hidden;
+}
+#aside #menu ul li a:hover:after {
+    visibility: visible;
+}
+
+#personal {
+    width: 80%;
+    float: right;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+#personal .content {
+    position: relative;
+    width: 93%;
+    margin: 0 auto;
+    padding: 4em 0;
+    clear: both;
+}
+
+#pay {
+    width: 80%;
+    float: right;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+#pay .content {
+    position: relative;
+    width: 93%;
+    margin: 0 auto;
+    padding: 4em 0;
+    clear: both;
+}
+
+#flight {
+    width: 80%;
+    float: right;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+
+#flight .content {
+    position: relative;
+    width: 93%;
+    margin: 0 auto;
+    padding: 4em 0;
+    clear: both;
+}
